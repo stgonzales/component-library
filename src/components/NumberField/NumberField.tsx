@@ -7,7 +7,7 @@ export const NumberField = ({
   label,
   placeholder,
   register,
-}: NumberFieldProps & {
+}: Omit<NumberFieldProps, 'type'> & {
   name: string;
   register?: UseFormRegister<FieldValues>;
 }) => {

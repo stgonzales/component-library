@@ -5,9 +5,14 @@ import {
   useFormContext,
   useFieldArray,
 } from 'react-hook-form';
-import { NumberField } from './components/NumberField/NumberField';
-import { TextField } from './components/TextField/TextField';
-import { ArrayFieldProps, Field, FormProps, ObjectFieldProps } from './types';
+import { NumberField } from '../NumberField/NumberField';
+import { TextField } from '../TextField/TextField';
+import {
+  ArrayFieldProps,
+  Field,
+  FormProps,
+  ObjectFieldProps,
+} from '../../types';
 
 const ObjectField = (props: ObjectFieldProps & { name: string }) => {
   const { label, name, properties } = props;
@@ -64,19 +69,23 @@ const ArrayField = (props: ArrayFieldProps & { name: string }) => {
 const renderFields = ([name, fieldProps]: [string, Field]) => {
   const { register } = useForm();
   if (fieldProps.type === 'text') {
-    return <TextField {...fieldProps} name={name} register={register} />;
+    return (
+      <TextField {...fieldProps} key={name} name={name} register={register} />
+    );
   }
 
   if (fieldProps.type === 'number') {
-    return <NumberField {...fieldProps} name={name} register={register} />;
+    return (
+      <NumberField {...fieldProps} key={name} name={name} register={register} />
+    );
   }
 
   if (fieldProps.type === 'object') {
-    return <ObjectField {...fieldProps} name={name} />;
+    return <ObjectField {...fieldProps} key={name} name={name} />;
   }
 
   if (fieldProps.type === 'array') {
-    return <ArrayField {...fieldProps} name={name} />;
+    return <ArrayField {...fieldProps} key={name} name={name} />;
   }
 
   return <div>Unknown Type</div>;
@@ -87,7 +96,7 @@ export const Form: React.FC<FormProps> = ({ fields, onSubmit }: FormProps) => {
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form role="form" onSubmit={form.handleSubmit(onSubmit)}>
         {Object.entries(fields).map(renderFields)}
         <button type="submit">Save</button>
       </form>

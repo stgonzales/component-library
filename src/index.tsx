@@ -1,4 +1,4 @@
-export { Form } from './Form';
+export { Form } from './components/Form/Form';
 export { FormProps } from './types';
 
 // import React, { FC, HTMLAttributes, ReactChild } from 'react';
